@@ -1,0 +1,23 @@
+<project name = "Person1AntBuild">
+    <!-- Setting up all the properties -->
+   
+    <property name = "src.dir" value = "${basedir}/src"/>
+    <property name = "lib.dir" value = "${basedir}/lib"/>
+    <property name = "build.dir" value = "${basedir}/build"/>
+    <property name = "main-class" value = "src.edu.gatech.oad.antlab.person.Person1"/>
+    
+	<target name = "prepare">
+	   <mkdir dir="${src.dir}"/>
+	   <mkdir dir="${lib.dir}"/>
+	   <mkdir dir="${build.dir}"/>
+	</target>
+	
+	<target name = "compile">
+	    <javac srcdir="${src.home}" destdir="${build.dir}">
+	    </javac>
+	</target>
+	
+	<target name = "javadoc">
+	    
+	</target>
+</project>
