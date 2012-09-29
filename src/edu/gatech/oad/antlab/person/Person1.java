@@ -29,9 +29,17 @@ public class Person1 {
 	 * @param input the string to be modified
 	 * @return the modified string
 	 */
-	private String calc(String input) {
+	private String calc(String input)
+	{
 	  //Person 1 put your implementation here
-	  return null;
+		if (input.length() > 2)
+		{
+			return input.substring(2) + input.substring(0, 1);
+		}
+		else
+		{
+			return input;
+		}
 	}
 	
 	/**
