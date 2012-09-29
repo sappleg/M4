@@ -5,8 +5,8 @@ package edu.gatech.oad.antlab.person;
  *  returns their name and a
  *  modified string 
  *  
- *  @author Bob
- *  @version 1.1
+ *  @author Shawn Chaudhry
+ *  @version 1.2
  */
 public class Person1 {
   /** Holds the persons real name */
