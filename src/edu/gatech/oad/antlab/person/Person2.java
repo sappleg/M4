@@ -31,7 +31,23 @@ public class Person2 {
 	 */
 	private String calc(String input) {
 	  //Person 2 put your implementation here
-	  return null;
+		char[] turtle = input.toCharArray();
+		int shuffle = (int) Math.pow(input.length(), 2);
+
+		for (int i = 0; i < shuffle; i++) {
+
+			int index1 = (int) (Math.random() * turtle.length);
+			int index2 = (int) (Math.random() * turtle.length);
+			char temp1 = turtle[index1];
+			char temp2 = turtle[index2];
+
+			turtle[index2] = temp1;
+			turtle[index1] = temp2;
+		}
+
+		String newString = new String(turtle);
+
+		return newString;
 	}
 	/**
 	 * Return a string rep of this object
