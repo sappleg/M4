@@ -1,0 +1,82 @@
+<!-- Ant M4 -->
+<!-- sapplegate3.xml -->
+
+<project name="Person3AntBuild" basedir="." default="main">
+
+    <target name="init">
+        <property name="src.dir"        value="src" />
+        <property name="lib.dir"        value="lib" />
+        <property name="build.dir"      value="build" />
+        <property name="classes.dir"    value="${build.dir}/classes" />
+        <property name="jar.dir"        value="${build.dir}/jar" />
+        <property name="main-class"     value="src/edu/gatech/oad/antlab/person/Person3" />
+        <property name="docs.dir"       value="docs" />
+        <property name="javadoc.dir"    value="${docs.dir}/javadoc" />
+        <property name="jar.name"       value="AntLabRun.jar" />
+    </target>
+
+    <target name="prepare">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${classes.dir}" />
+        <mkdir dir="${jar.dir}" />
+        <mkdir dir="${docs.dir}" />
+        <mkdir dir="${javadoc.dir}" />
+    </target>
+
+    <target name="compile">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" classpath="${lib.dir}" />
+    </target>
+
+    <target name="javadoc">
+        <javadoc sourcepath="${src.dir}" access="public" destdir="${javadoc.dir}"
+            packagenames="edu.gatech.oad.antlab">
+            <!--<excludepackage name="edu.gt.cs2340.lab2.test.*"/>-->
+            <fileset dir="${src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <bottom>
+                <![CDATA[<i>Copyright &#169; 2012 Team 28 CS2340. All Rights Reserved.</i>]]>
+            </bottom>
+        </javadoc>
+    </target>
+
+    <target name="jar">
+        <jar destfile="${jar.name}">
+            <include name="edu/gatech/oad/antlab/person/*.class" />
+            <exclude name="resources.jar" />
+            <manifest>
+                <attribute name="Main-Class" value="edu.gatech.oad.antlab.person.Person3"/>
+                <attribute name="Class-Path" value="resources.jar" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="${jar.dir}/${jar.name}.jar" fork="true">
+            <classpath>
+                <pathelement location="${build.dir}"/>
+                <!--<pathelement location="${jdk_lib}/j2me.jar"/>-->
+                <pathelement location="java.class.path"/>
+            </classpath>
+        </java>
+        <echo>Team: Status Quo</echo>
+        <echo>Not sure what to put next</echo>
+    </target>
+
+    <target name="all">
+        <antcall target="init" />
+        <antcall target="prepare" />
+        <antcall target="compile" />
+        <antcall target="javadoc" />
+        <antcall target="jar" />
+        <antcall target="run" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}" />
+        <delete dir="${classes.dir}" />
+        <delete dir="${jar.dir}" />
+        <delete dir="${docs.dir}" />
+        <delete dir="${javadoc.dir}" />
+    </target>
+</project>
