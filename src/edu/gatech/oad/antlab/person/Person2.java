@@ -31,8 +31,8 @@ public class Person2 {
 	 */
 	private String calc(String input) {
 	  //Person 2 put your implementation here
-		char[] turtle = input.toCharArray();
-		int shuffle = (int) Math.pow(input.length(), 2);
+		char[] charArray = input.toCharArray();
+		int shuffle = input.length();
 
 		for (int i = 0; i < shuffle; i++) {
 
@@ -41,11 +41,11 @@ public class Person2 {
 			char temp1 = turtle[index1];
 			char temp2 = turtle[index2];
 
-			turtle[index2] = temp1;
-			turtle[index1] = temp2;
+			charArray[index2] = temp1;
+			charArray[index1] = temp2;
 		}
 
-		String newString = new String(turtle);
+		String newString = new String(charArray);
 
 		return newString;
 	}
