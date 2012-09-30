@@ -1,7 +1,7 @@
 <!-- Ant M4 -->
 <!-- sapplegate3.xml -->
 
-<project name="Person3AntBuild" basedir="." default="main">
+<project name="M4" basedir="." default="all">
 
     <target name="init">
         <property name="src.dir"        value="src" />
