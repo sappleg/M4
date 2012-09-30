@@ -7,30 +7,26 @@
         <property name="src.dir"        value="src" />
         <property name="lib.dir"        value="lib" />
         <property name="build.dir"      value="build" />
-        <property name="classes.dir"    value="${build.dir}/classes" />
-        <property name="jar.dir"        value="${build.dir}/jar" />
-        <property name="main-class"     value="src/edu/gatech/oad/antlab/person/Person3" />
-        <property name="docs.dir"       value="docs" />
-        <property name="javadoc.dir"    value="${docs.dir}/javadoc" />
+        <property name="docs.dir"       value="apidoc" />
         <property name="jar.name"       value="AntLabRun.jar" />
     </target>
 
-    <target name="prepare">
+    <target name="prepare" depends="init">
         <mkdir dir="${build.dir}" />
-        <mkdir dir="${classes.dir}" />
-        <mkdir dir="${jar.dir}" />
         <mkdir dir="${docs.dir}" />
-        <mkdir dir="${javadoc.dir}" />
     </target>
 
-    <target name="compile">
-        <javac srcdir="${src.dir}" destdir="${build.dir}" classpath="${lib.dir}" />
+    <target name="compile" depends="prepare">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" classpath="${lib.dir}/resources.jar" includeantruntime="false"/>
     </target>
 
-    <target name="javadoc">
-        <javadoc sourcepath="${src.dir}" access="public" destdir="${javadoc.dir}"
-            packagenames="edu.gatech.oad.antlab">
-            <!--<excludepackage name="edu.gt.cs2340.lab2.test.*"/>-->
+    <target name="javadoc" depends="prepare">
+        <javadoc 
+            sourcepath="${src.dir}" 
+            classpath="${lib.dir}/resources.jar"
+            destdir="${docs.dir}"
+            packagenames="edu.gatech.oad.antlab"
+            access="public">
             <fileset dir="${src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -40,19 +36,19 @@
         </javadoc>
     </target>
 
-    <target name="jar">
-        <jar destfile="${jar.name}">
-            <include name="edu/gatech/oad/antlab/person/*.class" />
-            <exclude name="resources.jar" />
+    <target name="jar" depends="compile">
+        <jar destfile="${lib.dir}/${jar.name}">
+            <include name="${build.dir}/*.class" />
+            <exclude name="${lib.dir}/resources.jar" />
             <manifest>
-                <attribute name="Main-Class" value="edu.gatech.oad.antlab.person.Person3"/>
-                <attribute name="Class-Path" value="resources.jar" />
+                <attribute name="Main-Class" value="${build.dir}/edu/gatech/oad/antlab/person/Person3"/>
+                <attribute name="Class-Path" value="${lib.dir}/resources.jar" />
             </manifest>
         </jar>
     </target>
 
-    <target name="run">
-        <java jar="${jar.dir}/${jar.name}.jar" fork="true">
+    <target name="run" depends="jar">
+        <java jar="${lib.dir}/${jar.name}" fork="true">
             <classpath>
                 <pathelement location="${build.dir}"/>
                 <!--<pathelement location="${jdk_lib}/j2me.jar"/>-->
@@ -64,11 +60,7 @@
     </target>
 
     <target name="all">
-        <antcall target="init" />
-        <antcall target="prepare" />
-        <antcall target="compile" />
         <antcall target="javadoc" />
-        <antcall target="jar" />
         <antcall target="run" />
     </target>
 
