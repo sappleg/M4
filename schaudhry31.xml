@@ -24,10 +24,6 @@
 	<target name = "run" depends="compile">
 	    <java classname="src.edu.gatech.oad.antlab.person.Person1">
 	    </java>
-	    <classpath>
-            <pathelement path="${java.class.path}" />
-        	<pathelement location="${build.dir}" />
-        </classpath>
 	</target>
 	
 	<target name = "clean" depends = "init" >
