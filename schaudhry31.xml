@@ -1,5 +1,8 @@
-<project name = "Person1AntBuild" basedir=".">
+<project name = "Person1AntBuild" basedir="." default = "all">
     <!-- Setting up all the properties -->
+    
+    <target name="all" depends="run" />
+    
    	<target name = "init">
 	    <property name = "src.dir" value = "${basedir}/src"/>
 	    <property name = "lib.dir" value = "${basedir}/lib"/>
@@ -14,13 +17,17 @@
 	</target>
 	
 	<target name = "compile" depends = "prepare">
-	    <javac srcdir="${src.home}" destdir="${build.dir}">
+	    <javac srcdir="${src.dir}" destdir="${build.dir}">
 	    </javac>
 	</target>
    
 	<target name = "run" depends="compile">
 	    <java classname="src.edu.gatech.oad.antlab.person.Person1">
 	    </java>
+	    <classpath>
+            <pathelement path="${java.class.path}" />
+        	<pathelement location="${build.dir}" />
+        </classpath>
 	</target>
 	
 	<target name = "clean" depends = "init" >
