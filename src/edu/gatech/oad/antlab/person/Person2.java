@@ -38,8 +38,8 @@ public class Person2 {
 
 			int index1 = (int) (Math.random() * charArray.length);
 			int index2 = (int) (Math.random() * charArray.length);
-			char temp1 = turtle[index1];
-			char temp2 = turtle[index2];
+			char temp1 = charArray[index1];
+			char temp2 = charArray[index2];
 
 			charArray[index2] = temp1;
 			charArray[index1] = temp2;
