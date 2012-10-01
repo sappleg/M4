@@ -36,8 +36,8 @@ public class Person2 {
 
 		for (int i = 0; i < shuffle; i++) {
 
-			int index1 = (int) (Math.random() * turtle.length);
-			int index2 = (int) (Math.random() * turtle.length);
+			int index1 = (int) (Math.random() * charArray.length);
+			int index2 = (int) (Math.random() * charArray.length);
 			char temp1 = turtle[index1];
 			char temp2 = turtle[index2];
 
