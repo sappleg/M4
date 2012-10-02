@@ -47,13 +47,13 @@
   	 	</fileset>
 		</path>
 		<manifestclasspath property="lib.list" jarfile="AntLabRun.jar">
-  		  <classpath refid="build-classpath"/>
+  		  	<classpath refid="build-classpath"/>
 		</manifestclasspath>
 	    <jar destfile="AntLabRun.jar" basedir="${build.dir}">
 	    <manifest>
 	        <attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain" />
 	   		<attribute name="Class-Path" value="${lib.list}" />
-	        </manifest>
+	    </manifest>
 	    </jar>
 	</target>
 	
