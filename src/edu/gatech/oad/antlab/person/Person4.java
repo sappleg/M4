@@ -44,7 +44,6 @@ public class Person4 {
         
         String endString = new String(x);
         return endString;
-      return null;
     }
     
     /**
