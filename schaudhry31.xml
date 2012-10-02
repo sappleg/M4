@@ -7,22 +7,62 @@
 	    <property name = "src.dir" value = "${basedir}/src"/>
 	    <property name = "lib.dir" value = "${basedir}/lib"/>
 	    <property name = "build.dir" value = "${basedir}/build"/>
-	    <property name = "main-class" value = "src.edu.gatech.oad.antlab.person.Person1"/>
+	    <property name = "docs.dir" value = "${basedir}/docs"/>
+	    
     </target>
     
 	<target name = "prepare" depends = "init">
 	   <mkdir dir="${src.dir}"/>
-	   <mkdir dir="${lib.dir}"/>
 	   <mkdir dir="${build.dir}"/>
+	   <mkdir dir="${docs.dir}"/>
 	</target>
 	
 	<target name = "compile" depends = "prepare">
-	    <javac srcdir="${src.dir}" destdir="${build.dir}">
+	    <javac srcdir="${src.dir}" 
+	        destdir="${build.dir}" 
+	        classpath="lib/resources.jar" 
+	        includeantruntime="false">
 	    </javac>
 	</target>
-   
-	<target name = "run" depends="compile">
-	    <java classname="src.edu.gatech.oad.antlab.person.Person1">
+	
+	<target name = "javadoc" depends = "prepare">
+	 	<javadoc packagenames="edu.gatech.oad.antlab"
+          	 sourcepath="src"
+          	 defaultexcludes="yes"
+          	 author="true"
+          	 version="true"
+          	 use="true"
+          	 destdir="${docs.dir}/javadoc">
+           	<fileset dir="${src.dir}">
+           	    <include name="**/*.java" />
+           	</fileset>
+    		<bottom><![CDATA[<i>Copyright &#169; 2012 Team 28 CS2340 All Rights Reserved.</i>]]></bottom>
+    	</javadoc>
+	</target>   
+	
+	<target name = "jar" depends = "compile">
+	    <path id="build-classpath">
+    	<fileset dir="lib">
+      		<include name="*.jar"/>
+  	 	</fileset>
+		</path>
+		<manifestclasspath property="lib.list" jarfile="AntLabRun.jar">
+  		  <classpath refid="build-classpath"/>
+		</manifestclasspath>
+	    <jar destfile="AntLabRun.jar" basedir="${build.dir}">
+	    <manifest>
+	        <attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain" />
+	   		<attribute name="Class-Path" value="${lib.list}" />
+	        </manifest>
+	    </jar>
+	</target>
+	
+	<target name = "run" depends="jar">
+	    <java jar="AntLabRun.jar" fork = "true">
+	    <classpath>
+	        <pathelement location = "${build.dir}" />
+	        <pathelement location = "${lib.dir}/resources.jar" />
+	    </classpath>
 	    </java>
 	</target>
 	
