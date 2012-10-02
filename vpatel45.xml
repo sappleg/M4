@@ -1,0 +1,61 @@
+<project name="M4_Ant" default="all" basedir=".">
+
+  <target name="init">
+	<property name="javadocs.dir" location="src\javadocs"/>
+	<property name="build.dir" location="build"/>
+	<property name = "src.dir" value = "src"/>
+  </target>
+
+  <target name="prepare" depends ="init">
+	<mkdir dir = "${javadocs.dir}"/>
+	<mkdir dir = "${build.dir}"/>
+  </target>
+  
+  <target name="compile" depends="prepare">
+	<javac srcdir="${src.dir}" destdir="${build.dir}" classpath="lib\resources.jar" includeantruntime="false"/>
+  </target>
+  
+  <target name="javadoc" depends="compile">
+	<javadoc sourcepath="src" destdir="src\javadocs" classpath="lib\resources.jar">
+		<fileset dir= "src"/>
+	</javadoc>
+  </target>
+  
+  <target name="jar" depends="javadoc">
+  
+    <manifest file="MANIFEST.MF">
+		<attribute name="Built-By" value="Vraj Patel"/>
+		<attribute name="Version" value="13.37"/> 
+		<attribute name="Developers" value="Team 28"/>
+		<attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain" />
+		<attribute name="Class-Path" value=". lib/AntLabRun.jar" />
+	</manifest>
+	
+	<jar destfile="lib\AntLabRun.jar" basedir="build" manifest="MANIFEST.MF"/>
+	
+  </target>
+  
+  
+  <target name="run" depends="jar">
+	<java jar="lib\AntLabRun.jar" fork="true" classpath="lib\resources.jar"/>
+  </target>
+  
+  
+  <target name="all" depends="run"/>
+  
+  
+  
+  
+
+  
+  <target name="clean" depends= "init">
+	<delete dir = "${javadocs.dir}"/>
+	<delete dir = "${build.dir}"/>
+	<delete file = "MANIFEST.MF"/>
+	<delete file = "lib\AntLabRun.jar"/>
+  </target>
+  
+  
+  
+</project>
+ 
